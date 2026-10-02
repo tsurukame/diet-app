@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#16a34a">
+<meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -14,80 +14,94 @@
 <title>ダイエット記録</title>
 <style>
   :root {
-    --bg: #f5f7f5; --card: #ffffff; --text: #1c2420; --muted: #6b766f; --line: #e3e8e4;
-    --accent: #16a34a; --accent-soft: #dcfce7; --warn: #d97706; --danger: #dc2626; --blue: #2563eb;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0f1411; --card: #18201b; --text: #e7ece9; --muted: #93a098; --line: #2a342e;
-      --accent: #22c55e; --accent-soft: #143322; --warn: #f59e0b; --danger: #f87171; --blue: #60a5fa;
-    }
+    --bg: #ffffff; --card: #ffffff; --fill: #f3f5f4; --text: #1a1f1c; --muted: #7a847e; --line: #eceeed;
+    --accent: #16a34a; --accent-soft: #e9f7ee; --warn: #c2410c; --warn-soft: #fff4ec; --danger: #dc2626; --blue: #2563eb;
   }
   * { box-sizing: border-box; }
+  html { color-scheme: light; }
   body {
     margin: 0; background: var(--bg); color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
-    font-size: 15px; line-height: 1.5; padding-bottom: 80px;
+    font-size: 15px; line-height: 1.5; padding-bottom: 84px; -webkit-tap-highlight-color: transparent;
   }
-  header { padding: 18px 16px 6px; max-width: 560px; margin: 0 auto; }
-  header h1 { margin: 0; font-size: 20px; }
+  header { padding: 20px 16px 4px; max-width: 560px; margin: 0 auto; }
+  header h1 { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: .02em; }
   header .sub { color: var(--muted); font-size: 13px; }
   main { max-width: 560px; margin: 0 auto; padding: 0 16px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin: 12px 0; }
-  .card h2 { margin: 0 0 10px; font-size: 15px; color: var(--muted); font-weight: 600; }
-  .big { font-size: 34px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
-  .row { display: flex; gap: 10px; align-items: center; }
+  .card { background: var(--card); padding: 20px 0; border-bottom: 1px solid var(--line); }
+  .card:last-child { border-bottom: none; }
+  .card h2 { margin: 0 0 12px; font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: .04em; }
+  .big { font-size: 36px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .row { display: flex; gap: 8px; align-items: center; }
   .row > * { flex: 1; }
   .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
+  .stat { background: var(--fill); border-radius: 10px; padding: 10px 4px; }
   .stat .v { font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .stat .l { font-size: 12px; color: var(--muted); }
-  .bar { height: 10px; background: var(--line); border-radius: 99px; overflow: hidden; margin: 8px 0 4px; }
+  .stat .l { font-size: 11px; color: var(--muted); }
+  .bar { height: 8px; background: var(--fill); border-radius: 99px; overflow: hidden; margin: 10px 0 6px; }
   .bar > div { height: 100%; background: var(--accent); border-radius: 99px; transition: width .3s; }
   .bar.over > div { background: var(--danger); }
-  label { display: block; font-size: 13px; color: var(--muted); margin: 8px 0 4px; }
+  label { display: block; font-size: 13px; color: var(--muted); margin: 10px 0 4px; }
   input, select {
-    width: 100%; padding: 10px 12px; font-size: 16px; border-radius: 10px;
-    border: 1px solid var(--line); background: var(--bg); color: var(--text);
+    width: 100%; padding: 11px 12px; font-size: 16px; border-radius: 10px;
+    border: 1px solid transparent; background: var(--fill); color: var(--text); outline: none;
+    -webkit-appearance: none; appearance: none;
   }
+  select { background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+    background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 28px; }
+  input:focus, select:focus { border-color: var(--accent); background-color: #fff; }
+  input[type=checkbox] { -webkit-appearance: auto; appearance: auto; }
   button {
-    font: inherit; font-weight: 600; padding: 10px 14px; border-radius: 10px; border: none;
+    font: inherit; font-weight: 600; padding: 11px 14px; border-radius: 10px; border: none;
     background: var(--accent); color: #fff; cursor: pointer;
   }
-  button.ghost { background: transparent; color: var(--accent); border: 1px solid var(--line); }
-  button.small { padding: 4px 10px; font-size: 13px; }
+  button:active { opacity: .8; }
+  button.ghost { background: var(--fill); color: var(--accent); }
+  button.small { padding: 5px 10px; font-size: 13px; }
   button.del { background: transparent; color: var(--muted); padding: 2px 8px; font-size: 18px; }
+  a { color: var(--accent); }
   ul.list { list-style: none; margin: 0; padding: 0; }
-  ul.list li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  ul.list li { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--line); }
   ul.list li:last-child { border-bottom: none; }
   ul.list li .name { flex: 1; }
   ul.list li .kcal { font-variant-numeric: tabular-nums; color: var(--muted); }
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-  .chip { background: var(--accent-soft); color: var(--text); border: none; font-weight: 500; padding: 6px 10px; font-size: 13px; border-radius: 99px; }
-  .habit { display: flex; align-items: center; gap: 10px; padding: 8px 0; cursor: pointer; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .chip { background: var(--fill); color: var(--text); font-weight: 500; padding: 6px 11px; font-size: 13px; border-radius: 99px; }
+  .habit { display: flex; align-items: center; gap: 10px; padding: 8px 0; margin: 0; color: var(--text); font-size: 15px; cursor: pointer; }
   .habit input { width: 22px; height: 22px; accent-color: var(--accent); }
   .muted { color: var(--muted); font-size: 13px; }
-  .msg { padding: 10px 12px; border-radius: 10px; background: var(--accent-soft); font-size: 14px; }
-  .msg.warn { background: color-mix(in srgb, var(--warn) 18%, transparent); }
-  .datebar { display: flex; align-items: center; justify-content: space-between; }
-  .datebar button { background: transparent; color: var(--text); font-size: 20px; padding: 4px 12px; }
+  .msg { padding: 12px 14px; border-radius: 10px; background: var(--accent-soft); font-size: 14px; }
+  .msg.warn { background: var(--warn-soft); color: var(--warn); }
+  .datebar { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; }
+  .datebar button { background: var(--fill); color: var(--text); font-size: 18px; width: 40px; height: 40px; padding: 0; border-radius: 50%; }
   nav {
-    position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-top: 1px solid var(--line);
+    position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--line);
     display: flex; justify-content: center; padding-bottom: env(safe-area-inset-bottom);
   }
   nav .inner { display: flex; width: 100%; max-width: 560px; }
   nav button {
-    flex: 1; background: transparent; color: var(--muted); border-radius: 0; padding: 10px 0 12px;
-    font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 2px;
+    flex: 1; background: transparent; color: #a7afaa; border-radius: 0; padding: 10px 0 12px;
+    font-size: 11px; display: flex; flex-direction: column; align-items: center; gap: 2px;
   }
-  nav button .ic { width: 24px; height: 24px; fill: currentColor; }
+  nav button .ic { width: 24px; height: 24px; fill: currentColor; transition: transform .15s; }
   nav button.active { color: var(--accent); }
   nav button.active .ic { transform: scale(1.08); }
-  nav button .ic { transition: transform .15s; }
   section[hidden] { display: none; }
   svg text { fill: var(--muted); font-size: 11px; }
+  .photo-btn { display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .photo-btn svg { width: 20px; height: 20px; fill: currentColor; }
+  .photo-box { margin-top: 12px; padding: 12px; border-radius: 12px; background: var(--fill); }
+  .photo-box img { width: 100%; max-height: 220px; object-fit: cover; border-radius: 8px; }
+  .photo-box .item { display: flex; align-items: center; gap: 8px; padding: 6px 0; }
+  .photo-box .item input[type=checkbox] { width: 20px; height: 20px; flex: 0 0 auto; accent-color: var(--accent); }
+  .photo-box .item .name { flex: 1; }
+  .photo-box .item input[type=number] { flex: 0 0 80px; padding: 6px 8px; background: #fff; }
+  .spinner { width: 18px; height: 18px; border: 2px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; display: inline-block; vertical-align: middle; margin-right: 8px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
   .water { display: flex; gap: 4px; flex-wrap: wrap; }
-  .water span { font-size: 24px; cursor: pointer; opacity: .25; }
-  .water span.on { opacity: 1; }
+  .water { align-items: center; }
+  .water svg { width: 26px; height: 26px; fill: #e2e7e4; cursor: pointer; transition: fill .15s; }
+  .water svg.on { fill: var(--blue); }
 </style>
 </head>
 <body>
@@ -158,7 +172,14 @@
         <input id="mealName" placeholder="メニュー">
         <input id="mealKcal" type="number" inputmode="numeric" placeholder="kcal" style="flex:0 0 80px">
       </div>
-      <button style="width:100%;margin-top:8px" onclick="addMeal()">追加</button>
+      <div class="row" style="margin-top:8px">
+        <button onclick="addMeal()">追加</button>
+        <button class="ghost photo-btn" onclick="document.getElementById('photoInput').click()">
+          <svg viewBox="0 0 24 24"><path d="M9 3h6l1.5 2H20a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h3.5zm3 5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9zm0 2a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/></svg>
+          写真から計算</button>
+      </div>
+      <input type="file" id="photoInput" accept="image/*" capture="environment" hidden onchange="analyzePhoto(this)">
+      <div id="photoResult"></div>
       <div class="chips" id="quickFoods"></div>
       <ul class="list" id="mealList" style="margin-top:8px"></ul>
     </div>
@@ -230,6 +251,18 @@
       </select>
       <button style="width:100%;margin-top:14px" onclick="saveProfile()">保存して計算</button>
       <div id="planResult" style="margin-top:12px"></div>
+    </div>
+
+    <div class="card">
+      <h2>写真からカロリー計算（Claude API）</h2>
+      <p class="muted">食事の写真からカロリーを推定するには、Anthropic の API キーが必要です。<a href="https://platform.claude.com/settings/keys" target="_blank" rel="noopener">platform.claude.com</a> で発行できます。1枚あたりの利用料は数円程度です。</p>
+      <label>API キー</label>
+      <div class="row">
+        <input id="apiKeyInput" type="password" autocomplete="off" placeholder="sk-ant-...">
+        <button style="flex:0 0 auto" onclick="saveApiKey()">保存</button>
+      </div>
+      <p class="muted" id="apiKeyStatus"></p>
+      <p class="muted">キーはこの端末の中だけに保存され、Anthropic への送信以外には使われません。バックアップファイルにも含まれません。</p>
     </div>
 
     <div class="card">
@@ -351,6 +384,7 @@ function streak() {
 
 // ---------- 画面 ----------
 function showTab(name) {
+  document.getElementById('headerSub').textContent = fmtDay(todayStr());
   document.querySelectorAll('main > section').forEach(s => s.hidden = s.id !== 'tab-' + name);
   document.querySelectorAll('nav button').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
   ({ home: renderHome, log: renderLog, chart: renderCharts, settings: renderSettings })[name]();
@@ -360,7 +394,6 @@ function showTab(name) {
 function renderHome() {
   const p = state.profile;
   document.getElementById('setupPrompt').hidden = !!p;
-  document.getElementById('headerSub').textContent = fmtDay(todayStr());
   const d = peekDay(todayStr()) || { meals: [], exercise: [] };
   const eaten = sum(d.meals), burned = sum(d.exercise);
 
@@ -433,8 +466,8 @@ function renderLog() {
   document.getElementById('exTotal').textContent = `合計 ${sum(d.exercise)} kcal`;
 
   document.getElementById('water').innerHTML = Array.from({ length: 10 }, (_, i) =>
-    `<span class="${i < d.water ? 'on' : ''}" onclick="setWater(${i + 1})">💧</span>`).join('') +
-    `<span class="muted" style="opacity:1;font-size:14px;align-self:center;margin-left:6px">${d.water * 200} ml</span>`;
+    `<svg class="${i < d.water ? 'on' : ''}" onclick="setWater(${i + 1})" viewBox="0 0 24 24"><path d="M12 2.5c-.3 0-.6.2-.8.4C9.6 5 5 11 5 15a7 7 0 0 0 14 0c0-4-4.6-10-6.2-12.1-.2-.2-.5-.4-.8-.4z"/></svg>`).join('') +
+    `<span class="muted" style="margin-left:6px">${d.water * 200} ml</span>`;
 
   document.getElementById('habitList').innerHTML = HABITS.map((h, i) =>
     `<label class="habit"><input type="checkbox" ${d.habits[i] ? 'checked' : ''} onchange="toggleHabit(${i}, this.checked)"><span>${h}</span></label>`
@@ -482,6 +515,159 @@ function quickEx(i) {
 function removeItem(kind, i) { day(currentDay)[kind].splice(i, 1); save(); renderLog(); }
 function setWater(n) { const d = day(currentDay); d.water = d.water === n ? n - 1 : n; save(); renderLog(); }
 function toggleHabit(i, v) { day(currentDay).habits[i] = v; save(); }
+
+// ---------- 写真からカロリー推定 ----------
+const API_KEY_STORE = 'diet-app-apikey';   // 記録データとは別に保存（バックアップに含めない）
+const SDK_URL = 'https://cdn.jsdelivr.net/npm/@anthropic-ai/sdk@0.131.0/+esm';
+const PHOTO_PROMPT = `この食事の写真に写っている料理・食品をすべて挙げ、それぞれの量とカロリーを推定してください。
+- 日本の一般的な1人前の量と、日本食品標準成分表の値を基準にしてください。
+- 器の大きさや盛り付けの量から、できるだけ実際の量に合わせて推定してください。
+- ご飯・パン・麺などの主食、ドレッシングやソース、飲み物も写っていれば含めてください。
+- 食べ物が写っていない場合は items を空にし、note にその旨を書いてください。
+- name・amount・note は日本語で書いてください。`;
+const PHOTO_SCHEMA = {
+  type: 'object',
+  properties: {
+    items: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          name: { type: 'string', description: '料理・食品名' },
+          amount: { type: 'string', description: '推定量（例: 茶碗1杯 150g）' },
+          kcal: { type: 'integer', description: '推定カロリー' },
+        },
+        required: ['name', 'amount', 'kcal'],
+        additionalProperties: false,
+      },
+    },
+    confidence: { type: 'string', enum: ['high', 'medium', 'low'] },
+    note: { type: 'string', description: '推定の前提や注意点を1〜2文で' },
+  },
+  required: ['items', 'confidence', 'note'],
+  additionalProperties: false,
+};
+
+let photoItems = [];
+
+function getApiKey() { try { return localStorage.getItem(API_KEY_STORE) || ''; } catch (e) { return ''; } }
+function saveApiKey() {
+  const v = document.getElementById('apiKeyInput').value.trim();
+  try { v ? localStorage.setItem(API_KEY_STORE, v) : localStorage.removeItem(API_KEY_STORE); } catch (e) {}
+  document.getElementById('apiKeyInput').value = '';
+  renderApiKeyStatus(); toast(v ? 'API キーを保存しました' : 'API キーを削除しました');
+}
+function renderApiKeyStatus() {
+  const k = getApiKey();
+  document.getElementById('apiKeyStatus').textContent = k ? `設定済み（…${k.slice(-4)}）。空欄で保存すると削除します。` : '未設定';
+}
+
+// スマホ写真は大きいので、長辺1568pxのJPEGに縮小してから送る
+function resizeImage(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, 1568 / Math.max(img.width, img.height));
+      const c = document.createElement('canvas');
+      c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(img.src);
+      resolve(c.toDataURL('image/jpeg', 0.85));
+    };
+    img.onerror = () => reject(new Error('画像を読み込めませんでした'));
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+async function analyzePhoto(input) {
+  const file = input.files[0]; input.value = '';
+  if (!file) return;
+  const box = document.getElementById('photoResult');
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    box.innerHTML = `<div class="photo-box"><div class="msg warn">写真から計算するには、設定タブで API キーを登録してください。</div>
+      <button class="ghost" style="width:100%;margin-top:8px" onclick="showTab('settings')">設定を開く</button></div>`;
+    return;
+  }
+
+  let dataUrl;
+  try { dataUrl = await resizeImage(file); } catch (e) { return alert(e.message); }
+  const imgHtml = `<img src="${dataUrl}" alt="食事の写真">`;
+  box.innerHTML = `<div class="photo-box">${imgHtml}<p><span class="spinner"></span>写真を解析しています…（10秒ほどかかります）</p></div>`;
+
+  let Anthropic;
+  try {
+    ({ default: Anthropic } = await import(SDK_URL));
+    const client = new Anthropic({ apiKey, dangerouslyAllowBrowser: true });
+    const res = await client.beta.messages.create({
+      model: 'claude-opus-5-5',
+      max_tokens: 4000,
+      betas: ['server-side-fallback-2026-07-01'],
+      fallbacks: 'default',
+      output_config: { effort: 'medium', format: { type: 'json_schema', schema: PHOTO_SCHEMA } },
+      messages: [{
+        role: 'user',
+        content: [
+          { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: dataUrl.split(',')[1] } },
+          { type: 'text', text: PHOTO_PROMPT },
+        ],
+      }],
+    });
+    if (res.stop_reason === 'refusal') throw new Error('この写真は解析できませんでした。別の写真でお試しください。');
+    if (res.stop_reason === 'max_tokens') throw new Error('解析結果が長すぎました。料理を絞って撮影してください。');
+    const text = res.content.filter(b => b.type === 'text').pop();
+    if (!text) throw new Error('解析結果を受け取れませんでした。もう一度お試しください。');
+    const result = JSON.parse(text.text);
+    photoItems = result.items.map(it => ({ ...it, on: true }));
+    renderPhotoResult(imgHtml, result);
+  } catch (e) {
+    let msg = e.message || String(e);
+    if (Anthropic && e instanceof Anthropic.AuthenticationError) msg = 'API キーが正しくありません。設定タブで確認してください。';
+    else if (Anthropic && e instanceof Anthropic.RateLimitError) msg = '混み合っています。少し待ってからもう一度お試しください。';
+    else if (Anthropic && e instanceof Anthropic.APIConnectionError) msg = '通信できませんでした。電波の良い場所でもう一度お試しください。';
+    else if (Anthropic && e instanceof Anthropic.APIError) msg = `エラーが発生しました（${e.status ?? ''}）: ${e.message}`;
+    else if (!Anthropic) msg = '通信できませんでした。インターネット接続を確認してください。';
+    box.innerHTML = `<div class="photo-box">${imgHtml}<div class="msg warn" style="margin-top:8px">${esc(msg)}</div></div>`;
+  }
+}
+
+function renderPhotoResult(imgHtml, result) {
+  const box = document.getElementById('photoResult');
+  if (!photoItems.length) {
+    box.innerHTML = `<div class="photo-box">${imgHtml}<div class="msg warn" style="margin-top:8px">${esc(result.note || '食べ物が見つかりませんでした。')}</div></div>`;
+    return;
+  }
+  const conf = { high: '高', medium: '中', low: '低' }[result.confidence] || '–';
+  box.innerHTML = `<div class="photo-box">${imgHtml}
+    <div style="margin-top:8px">${photoItems.map((it, i) => `
+      <label class="item">
+        <input type="checkbox" checked onchange="photoItems[${i}].on=this.checked;updatePhotoTotal()">
+        <span class="name">${esc(it.name)}<br><span class="muted">${esc(it.amount)}</span></span>
+        <input type="number" inputmode="numeric" value="${it.kcal}" oninput="photoItems[${i}].kcal=parseInt(this.value,10)||0;updatePhotoTotal()">
+        <span class="muted">kcal</span>
+      </label>`).join('')}
+    </div>
+    <p class="muted">推定の確かさ: ${conf}　${esc(result.note)}<br>あくまで目安です。量が違うときは数字を直してから追加してください。</p>
+    <div class="row">
+      <button class="ghost" onclick="clearPhoto()">やめる</button>
+      <button id="photoAddBtn" onclick="addPhotoItems()"></button>
+    </div>
+  </div>`;
+  updatePhotoTotal();
+}
+
+function updatePhotoTotal() {
+  const total = photoItems.filter(it => it.on).reduce((a, it) => a + it.kcal, 0);
+  document.getElementById('photoAddBtn').textContent = `${total} kcal を追加`;
+}
+function addPhotoItems() {
+  const type = document.getElementById('mealType').value;
+  const picked = photoItems.filter(it => it.on);
+  if (!picked.length) return alert('追加する料理を選んでください');
+  picked.forEach(it => day(currentDay).meals.push({ type, name: it.name, kcal: it.kcal }));
+  save(); clearPhoto(); renderLog(); toast(`${picked.length}品を追加しました`);
+}
+function clearPhoto() { photoItems = []; document.getElementById('photoResult').innerHTML = ''; }
 
 // ---------- グラフ ----------
 function setRange(n) { chartRange = n; renderCharts(); }
@@ -537,7 +723,7 @@ function barChart(days, vals, goal) {
   days.forEach((k, i) => {
     const v = vals[i], over = goal && v > goal;
     const bx = L + i * bw + bw * 0.2;
-    if (v) g += `<rect x="${bx}" y="${y(v)}" width="${bw * 0.6}" height="${H - B - y(v)}" rx="4" fill="${over ? 'var(--warn)' : 'var(--accent)'}"><title>${v} kcal</title></rect>`;
+    if (v) g += `<rect x="${bx}" y="${y(v)}" width="${bw * 0.6}" height="${H - B - y(v)}" rx="4" fill="${over ? '#f5a524' : 'var(--accent)'}"><title>${v} kcal</title></rect>`;
     g += `<text x="${bx + bw * 0.3}" y="${H - 6}" text-anchor="middle">${'日月火水木金土'[parseDay(k).getDay()]}</text>`;
   });
   return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="摂取カロリー">${g}</svg>`;
@@ -556,6 +742,7 @@ function renderSettings() {
   document.getElementById('pDate').value = v.targetDate;
   document.getElementById('pActivity').value = String(v.activity);
   renderPlan();
+  renderApiKeyStatus();
 }
 
 function renderPlan() {

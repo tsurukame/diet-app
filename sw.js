@@ -1,6 +1,6 @@
 // オフラインでも開けるように、アプリ本体をキャッシュする
 // アプリを更新したら VERSION を上げると、利用者の端末に新しい版が届く
-const VERSION = 'v1';
+const VERSION = 'v3';
 const FILES = ['./', './index.html', './manifest.webmanifest',
   './icons/apple-touch-icon.png', './icons/icon-192.png', './icons/icon-512.png'];
 
